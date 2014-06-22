@@ -101,3 +101,16 @@ Erlang系统预定义了一些宏
 -ifndef(Test).
 -else.
 -endif.
+
+进程
+进程创建 spawn()
+消息接收
+	receive
+		Pattern1 when Guard1 -> Body1;
+		................
+		PatternN when GuardN -> BodyN;
+	after Time ->	%Time为毫秒数，为0，进程永不阻塞，省略，将永不超时
+		TimeoutBody
+	end
+	
+ETS表
