@@ -1,6 +1,20 @@
-erlang运行时系统（ERTS）
+﻿erlang运行时系统（ERTS）
 erlang虚拟机（BEAM）
 erlang VM = ERTS + BEAM
+
+Create New repository
+
+touch README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/abtree1/erlTest.git
+git push -u origin master
+
+Push an existing repository
+
+git remote add origin https://github.com/abtree1/erlTest.git
+git push -u origin master
 
 git 上传流程
 git add --all
@@ -67,3 +81,23 @@ R = #customer{phone="55555555"}
 R#customer.phone -> "55555555"  %直接访问
 记录的修改
 R#customer{name="aaaa aaaa",address="vvbbv sv s s"}
+
+宏定义
+-define(PI,3.14).
+-define(pair(X,Y),{X,Y}).
+-undef(pair).
+
+宏使用(宏前加?)
+	exp：2*?PI.
+		?pair(A,B).
+Erlang系统预定义了一些宏
+
+文件包含
+-include("test.hrl").  %hrl文件一般为erl文件的头文件,通常只有声明，没有函数
+-include_lib("test/test.hrl").
+
+条件编译
+-ifdef(Test). %宏没有用?开头
+-ifndef(Test).
+-else.
+-endif.
