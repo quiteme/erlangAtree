@@ -114,3 +114,20 @@ Erlang系统预定义了一些宏
 	end
 	
 ETS表
+
+EUnit测试
+-include_lib("eunit/include/eunit.hrl").
+
+start_test() ->					% 凡是以_test结尾的函数，都将被视为测试函数
+	{ok,_} = mod:func(Args).
+
+eunit:test(mod) or mod:test().   %执行测试的两种方法
+
+Erlang/OTP 目录结构
+<application-name>[-<version>]
+		|
+		|-doc       用于存放文档
+		|-ebin		用于存放编译后的文件
+		|-include   用于存放公共头文件
+		|-priv		用于存放各种需要随应用一起发布的其它内容
+		|-src		用于存放源码
