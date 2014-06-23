@@ -131,3 +131,12 @@ Erlang/OTP 目录结构
 		|-include   用于存放公共头文件
 		|-priv		用于存放各种需要随应用一起发布的其它内容
 		|-src		用于存放源码
+
+编写子进程规范
+Server = {tr_server,{tr_server,start_link,[]},permanent,2000,worker,[tr_server]}
+param 1：ID 用于系统内部标识 一般传人模块名
+param 2：{Module，Function，Args} 模块的启动函数和参数
+param 3：Restart，发生故障重启方案
+param 4：Shutdown，进程终止方案
+param 5：Type，supervisor or worker
+param 6: 进程的依赖模块
