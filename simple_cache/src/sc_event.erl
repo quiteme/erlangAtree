@@ -16,3 +16,9 @@ lookup(Key) ->
 
 create(Key,Value) ->
 	gen_event:notify(?SERVER,{create,{Key,Value}}).
+	
+replace(Key,Value) ->
+	gen_event:notify(?SERVER,{replace,{Key,Value}}).
+
+delete(Key) ->
+	gen_event:notify(?SERVER,{delete,Key}).
