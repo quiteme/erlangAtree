@@ -140,3 +140,11 @@ param 3：Restart，发生故障重启方案
 param 4：Shutdown，进程终止方案
 param 5：Type，supervisor or worker
 param 6: 进程的依赖模块
+
+分布式集群的建立
+erl 
+	-name 全名
+	-sname  简短名字（没有@及以后的部分）
+	-pa 包含路径
+nodes(). 查看与当前节点关联的所有节点
+net_adm:ping('a@name'). 建立关联节点(pong 建立成功 pang 建立失败)

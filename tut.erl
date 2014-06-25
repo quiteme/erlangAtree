@@ -5,6 +5,7 @@
 -export([rev/1]).
 -export([do_rev/1]).
 -export([tailrev/1]).
+-export([run/0]).
 
 fac(0) -> 1;
 fac(N) -> N*fac(N-1).
@@ -36,3 +37,18 @@ do_tailrev([X|Other],Acc)->do_tailrev(Other,[X|Acc]);
 do_tailrev([],Acc)->Acc.
 
 tailrev(List)->do_tailrev(List,[]).
+
+run() ->
+	rpc:call('a@chizeshengdeMac-mini.local',emysql,add_pool,[hello_pool, 1,"root", "123", "localhost", 3306,"hello_database", utf8]),
+    %emysql:add_pool(hello_pool, 1,
+    %    "root", "123", "localhost", 3306,
+    %    "hello_database", utf8),
+
+	rpc:call('a@chizeshengdeMac-mini.local',emysql,execute,[hello_pool,<<"INSERT INTO hello_table SET hello_text = 'Hello World!'">>]),
+   	%emysql:execute(hello_pool,
+    %    <<"INSERT INTO hello_table SET hello_text = 'Hello World!'">>),
+
+	Result = rpc:call('a@chizeshengdeMac-mini.local',emysql,execute,[hello_pool,<<"select hello_text from hello_table">>]),
+    %Result = emysql:execute(hello_pool,
+    %    <<"select hello_text from hello_table">>),
+    io:format("~n~p~n", [Result]).

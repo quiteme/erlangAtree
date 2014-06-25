@@ -8,6 +8,9 @@ add_hander()->
 
 delete_handler()->
 	sc_event:delete_handler(?MODULE,[]).
+
+init([]) ->
+	ok.
 	
 handle_event({create,{Key,Value}},State) ->
 	error_logger:info_msg("create(~w,~w)~n",[Key,Value]),
@@ -21,3 +24,15 @@ handle_event({delete,Key},State) ->
 handle_event({replace,{Key,Value}},State) ->
 	error_logger:info_msg("replace(~w,~w)~n",[Key,Value]),
 	{ok,State}.
+
+handler_call(Key,Value) ->
+	ok.
+
+handle_info(Key,Value) ->
+	ok.
+
+code_change(_OldVsn,State,_Extra) ->
+	ok.
+
+terminsate(_Reason,_State) ->
+	ok,
