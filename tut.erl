@@ -6,6 +6,8 @@
 -export([do_rev/1]).
 -export([tailrev/1]).
 -export([run/0]).
+-export([test/0]).
+-export([test1/0]).
 
 fac(0) -> 1;
 fac(N) -> N*fac(N-1).
@@ -52,3 +54,30 @@ run() ->
     %Result = emysql:execute(hello_pool,
     %    <<"select hello_text from hello_table">>),
     io:format("~n~p~n", [Result]).
+
+test() ->
+	Filters = [{fun dtest/1,["a1"]},{fun dtest/1,["a2"]}],
+	Result = run_filters(Filters),
+	io:format("~n~p~n",[Result]).
+
+run_filters([{Fun,[Args]}|Filters]) ->
+	case Fun(Args) of 
+		{error,Msg} -> {error,Msg};
+		Result ->
+			[Result | run_filters(Filters)]
+	end;
+run_filters([]) -> [ok].
+
+dtest(Arg) ->
+	{ok,Arg}.
+
+test1() ->
+	%{MeSec,Sec,MiSec} = os:timestamp(),
+	%{MeSec,Sec,MiSec} = now(),
+	%Microseconds = 1000000 * MeSec + Sec * 1000 + MiSec,
+	Microseconds = calendar:datetime_to_gregorian_seconds(now()),
+	io:format("~n~p~n",[Microseconds]),
+
+	Now = calendar:local_time(),
+	CurrentTime = calendar:datetime_to_gregorian_seconds(Now),
+	io:format("~n~p~n",[CurrentTime]).

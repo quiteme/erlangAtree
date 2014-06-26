@@ -1,5 +1,5 @@
 %%%=========================================
-%%% Pid = [{cid,Cid},{chatter,[Pid...]},{count,Count}]
+%%% Cid = [{cid,Cid},{manager,[Pid]},{chatter,[Pid...]},{count,Count}]
 %%%=========================================
 -module(cs_channel_store).
 -export([init/0,insert/2,lookup/1,delete/2]).
@@ -10,17 +10,17 @@ init() ->
 	ets:new(?TABLE_ID,[public,named_table]),
 	ok.
 
-insert(Key,Pid) ->
+insert(Key,Cid) ->
 	cs_test:print("cs_channel_store.erl insert"),
-	ets:insert(?TABLE_ID,{Key,Pid}).
+	ets:insert(?TABLE_ID,{Key,Cid}).
 
 lookup(Key) ->
 	cs_test:print("cs_channel_store.erl lookup"),
 	case ets:lookup(?TABLE_ID,Key) of
-		[{Key,Pid}] -> {ok,Pid};
+		[{Key,Cid}] -> {ok,Cid};
 		[] -> {error,not_found}
 	end.
 
-delete(Key,Pid) ->
+delete(Key,Cid) ->
 	cs_test:print("cs_channel_store.erl delete"),
-	ets:match_delete(?TABLE_ID,{Key,Pid}).
+	ets:match_delete(?TABLE_ID,{Key,Cid}).

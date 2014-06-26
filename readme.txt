@@ -32,14 +32,19 @@ exp:1.
 Erlang的运算符
 + - * 
 / 返回浮点数的除法
+Integer操作{
 div 返回整数的除法 
 rem 返回余数(不支持浮点数运算)
 bsl 左移
 bsr 右移
-band 逻辑和
-bor  逻辑或
-bxor 逻辑异或
-bnot 逻辑非
+band 位运算符 且 
+bor 位运算符 或
+bxor 位运算符 异或
+bnot 位运算符 非
+}
+andalso 逻辑和
+orelse  逻辑或
+not 逻辑非
 > < ==(算数相等) /=(算数不等) =:=(完全相等) =/=(不完全相等) >= =<
 
 数值 < 原子(相当于enum，（单引号可略）小写字符串) < 元祖（{}） < 列表（字符串也是列表）（[]）
@@ -148,3 +153,25 @@ erl
 	-pa 包含路径
 nodes(). 查看与当前节点关联的所有节点
 net_adm:ping('a@name'). 建立关联节点(pong 建立成功 pang 建立失败)
+
+处理多重嵌套case的方法
+case of
+	if 
+	end 
+end
+可转换为  
+case of 
+	when 
+end
+
+多重判断可转换为（递归）
+test() ->
+	Filters = [{fun is_fid_valid/1,[Arg]},{fun is_sid_valid/1,[Arg]}],
+	run_filters(Filters).
+
+run_filters([]) -> ok;
+run_filters([{Fun,Args}|Filters]) ->
+	case Fun(Args) of
+		{error,Msg} -> {error,Msg};
+		Result -> run_filters(Filters)
+	end.
