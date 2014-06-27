@@ -2,7 +2,7 @@
 -export ([start/0]).
 -export ([run/0]).
 -export ([test1/0]).
--export ([area/1]).
+-export ([area/1,list_remove_one/2]).
 
 start()->
 	io:format("erlang!~n"),
@@ -35,3 +35,6 @@ area(Shape)->				%使用case子句 替代如first.erl中的area函数重载
 		{rectangle,Height,Width} ->
 			Height*Width
 	end.
+
+list_remove_one(List,One) when is_list(List) ->
+	[X || X <- List , X =/= One].

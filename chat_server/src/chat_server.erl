@@ -1,5 +1,5 @@
 -module(chat_server).
--export([insert_chatter/1,create_channel/3,join_channel/2,chat_to_chatter/3,chat_to_channel/2]).
+-export([insert_chatter/1,create_channel/3,join_channel/2,chat_to_chatter/3,chatter_to_channel/2,leave_channel/1,drop_channel/1]).
 -define(MAX_CHANNEL,100).
 -define(CHAT_DELAY,1).
 
@@ -50,7 +50,7 @@ chat_to_chatter(From,To,Context) ->
 		{error,Value} -> {error,Value}
 	end.
 
-chat_to_channel(From,Context) ->
+chatter_to_channel(From,Context) ->
 	case cs_chatter_store:lookup(From) of
 		{ok,Pid} ->
 			case cs_chatter:fetch_time(Pid) of
@@ -66,6 +66,37 @@ chat_to_channel(From,Context) ->
 			end;
 		{error,Value} -> {error,Value}
 	end.
+
+%%==========================================
+%% 仅用于非管理者
+%%==========================================
+leave_channel(Key) ->
+	case cs_chatter_store:lookup(Key) of
+		{ok,Pid} ->
+			case cs_chatter:fetch(Pid) of
+				{ok,Cid,_,Manager} when Manager > 1 -> 
+					chatter_leave_channel(Pid,Cid),
+					cs_chatter:replace_cast(Pid,{0,0});
+				{error,Value} -> {error,Value};
+				_ -> {error,not_channel}
+			end;
+		{error,Value} -> {error,Value}
+	end.
+
+%%==========================================
+%% 仅用于管理者
+%%==========================================
+drop_channel(Key) ->
+	case cs_chatter_store:lookup(Key) of
+		{ok,Pid} ->
+			case cs_chatter:fetch(Pid) of
+				{ok,Cid,_,Manager} when Manager =:= 1 -> chatter_drop_channel(Cid);
+				{error,Value} -> {error,Value};
+				_ -> {error,not_channel}
+			end;
+		{error,Value} -> {error,Value}
+	end.
+
 %%%==========================================
 %%% Internal functions
 %%%==========================================
@@ -117,10 +148,36 @@ chatter_join_channel(Pid,Cid) ->
 		{error,_} -> {error,not_found}
 	end.
 
-chatter_to_list(From,Tids,Context) ->
+chatter_to_list(From,Tids,Context) when is_list(Tids) ->
 	[begin 
 		cs_chatter:chat_cast(Tid,[From,Context])
 	end || Tid <- Tids].
+
+chatter_replace_list(List) when is_list(List) ->
+	[begin 
+		cs_chatter:replace_cast(Pid,{0,0})
+	end || Pid <- List].
+
+chatter_leave_channel(Pid,Cid) ->
+	case cs_channel_store:lookup(Cid) of
+		{ok,[{cid,Cid},{manager,Manager},{chatter,Chatter},{count,Count}]} ->
+			Chats = list_remove_one(Chatter,Pid),
+			cs_channel_store:insert(Cid,[{cid,Cid},{manager,Manager},{chatter,Chats},{count,Count - 1}]);
+		{error,_} -> {error,not_found}
+	end.
+
+chatter_drop_channel(Cid)->
+	case cs_channel_store:lookup(Cid) of
+		{ok,[{cid,Cid},{manager,Manager},{chatter,Chatter},Count]} ->
+			Filters = [{fun chatter_replace_list/1,[Manager]},{fun chatter_replace_list/1,[Chatter]}],
+			run_filters(Filters),
+			cs_channel:delete(Cid),
+			cs_channel_store:delete(Cid,[{cid,Cid},{manager,Manager},{chatter,Chatter},Count]);
+		_ -> {error,not_found}
+	end.
+
+list_remove_one(List,One) when is_list(List) ->
+	[X || X <- List , X =/= One].
 
 %有返回的filters调用
 run_filters_return([{Fun, [Args]}|Filters]) ->
@@ -131,7 +188,7 @@ run_filters_return([{Fun, [Args]}|Filters]) ->
 run_filters_return([]) -> [ok].
 
 %不需返回的filters调用
-run_filters([{Fun, Args}|Filters]) ->
+run_filters([{Fun, [Args]}|Filters]) ->
 	case Fun(Args) of 
 		{error, Msg} -> {error, Msg};
 		_ -> run_filters(Filters)

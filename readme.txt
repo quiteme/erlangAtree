@@ -2,6 +2,8 @@
 erlang虚拟机（BEAM）
 erlang VM = ERTS + BEAM
 
+Git 教程：http://www.git-scm.com/book/zh
+
 Create New repository
 
 touch README.md
