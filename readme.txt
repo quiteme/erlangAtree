@@ -3,6 +3,19 @@ erlang虚拟机（BEAM）
 erlang VM = ERTS + BEAM
 
 Git 教程：http://www.git-scm.com/book/zh
+erlang 常用添加库
+	rebar OTP管理工具
+	Emysql MySQL数据库工具
+	eredis redis库调用工具
+erlang 常用容器
+	dict
+	sets
+	lists
+	ets
+	proplist
+	array
+	put-get-earse(线程dict)
+	redis
 
 Create New repository
 
@@ -49,7 +62,7 @@ orelse  逻辑或
 not 逻辑非
 > < ==(算数相等) /=(算数不等) =:=(完全相等) =/=(不完全相等) >= =<
 
-数值 < 原子(相当于enum，（单引号可略）小写字符串) < 元祖（{}） < 列表（字符串也是列表）（[]）
+数值 < 原子(相当于enum，（单引号可略）小写字符串) < 元祖（{},记录也算元祖） < 列表（字符串也是列表）（[]）
 
 同名函数 只要参数个数不同 即为不同函数 函数全名为（函数名/参数个数）
 
@@ -177,3 +190,10 @@ run_filters([{Fun,Args}|Filters]) ->
 		{error,Msg} -> {error,Msg};
 		Result -> run_filters(Filters)
 	end.
+
+函数调用性能
+本地函数 foo()					非常快
+已知的远程函数 bar:foo()			几乎和本地函数调用一样快
+未知的远程调用 Mod:Func()			大约比本地调用慢3倍
+Fun 函数调用 F()					比本地调用慢2~3倍
+ 元调用 apply(Mod,Func,Args)		比本地调用慢6~10倍

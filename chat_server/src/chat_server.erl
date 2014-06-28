@@ -149,9 +149,9 @@ chatter_join_channel(Pid,Cid) ->
 	end.
 
 chatter_to_list(From,Tids,Context) when is_list(Tids) ->
-	[begin 
-		cs_chatter:chat_cast(Tid,[From,Context])
-	end || Tid <- Tids].
+	lists:foreach(fun(Element) ->
+		cs_chatter:chat_cast(Element,[From,Context])
+	end, Tids).
 
 chatter_replace_list(List) when is_list(List) ->
 	[begin 
