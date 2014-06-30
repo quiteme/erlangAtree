@@ -1,5 +1,5 @@
 -module(cs_chatter_store).
--export([init/0,insert/2,lookup/1,delete/2]).
+-export([init/0,insert/2,lookup/1,delete/1]).
 -define(TABLE_ID,?MODULE).
 
 init() ->
@@ -18,6 +18,6 @@ lookup(Key) ->
 		[] -> {error,not_found}
 	end.
 
-delete(Key,Pid) ->
+delete(Key) ->
 	cs_test:print("cs_chatter_store.erl delete"),
-	ets:match_delete(?TABLE_ID,{Key,Pid}).
+	ets:delete(?TABLE_ID,Key).

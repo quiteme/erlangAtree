@@ -1,4 +1,4 @@
-﻿erlang运行时系统（ERTS）
+erlang运行时系统（ERTS）
 erlang虚拟机（BEAM）
 erlang VM = ERTS + BEAM
 
@@ -196,4 +196,4 @@ run_filters([{Fun,Args}|Filters]) ->
 已知的远程函数 bar:foo()			几乎和本地函数调用一样快
 未知的远程调用 Mod:Func()			大约比本地调用慢3倍
 Fun 函数调用 F()					比本地调用慢2~3倍
- 元调用 apply(Mod,Func,Args)		比本地调用慢6~10倍
+元调用 apply(Mod,Func,Args)		比本地调用慢6~10倍

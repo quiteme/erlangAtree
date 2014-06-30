@@ -4,7 +4,7 @@
 -module(cs_chatter).
 -behaviour(gen_server).
 %% API
--export([start_link/0,create/0,fetch/1,fetch_time/1,replace_cast/1,replace_cast/2,chat_cast/2]).
+-export([start_link/0,create/0,fetch/1,fetch_time/1,replace_cast/1,replace_cast/2,chat_cast/2,stop/1]).
 %%gen_server callbacks
 -export([init/1,handle_call/3,handle_cast/2,handle_info/2,terminate/2,code_change/3]).
 -define (SERVER, ?MODULE).
@@ -40,6 +40,10 @@ chat_cast(Tid,Value) ->
 	cs_test:print("cs_chatter.erl replace_cast"),
 	gen_server:cast(Tid,{chatto,Value}).
 
+stop(Pid) ->
+	cs_test:print("cs_chatter.erl stop"),
+	gen_server:cast(Pid,stop).
+
 %%%==========================================
 %%% gen_server callbacks
 %%%==========================================
@@ -69,14 +73,15 @@ handle_cast({chatrep},State) ->
 	Now = calendar:local_time(),
 	CurrentTime = calendar:datetime_to_gregorian_seconds(Now),
 	#state{} = State,
-	{noreply,State#state{delay = CurrentTime}}.
+	{noreply,State#state{delay = CurrentTime}};
+handle_cast(stop,State) ->
+	{stop,normal,State}.
 
 handle_info(timeout,State) ->
 	cs_test:print("cs_chatter.erl handle_info"),
 	{stop,normal,State}.
 
 terminate(_Reason,_State) ->
-	cs_test:print("cs_chatter.erl terminate"),
 	ok.
 
 code_change(_OldVsn,State,_Extra) ->

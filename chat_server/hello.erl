@@ -13,8 +13,8 @@ run() ->
 	chat_server:join_channel("a3","a1"),
 	chat_server:join_channel("a4","a1"),
 	chat_server:join_channel("a5","a1"),
-	%chat_server:chat_to_chatter("a1","a2","this is a test!").
-	%chat_server:chatter_to_channel("a1","this is a test!"),
-	%chat_server:chatter_to_channel("a1","this is a test!").
+	chat_server:chat_to_chatter("a1","a2","this is a test!"),
+	chat_server:chatter_to_channel("a1","this is a test!"),
+	chat_server:chatter_to_channel("a1","this is a test!"),
 	chat_server:leave_channel("a3"),
 	chat_server:drop_channel("a1").

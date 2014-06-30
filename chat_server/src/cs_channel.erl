@@ -41,7 +41,7 @@ handle_call(_,_From,State) ->
 	{noreply,State}.
 
 handle_cast(delete,State) ->
-	cs_test:print("cs_channel.erl handle_cast"),
+	%cs_test:print("cs_channel.erl handle_cast"),
 	{stop,normal,State}.
 
 handle_info(_,State) ->
@@ -49,7 +49,6 @@ handle_info(_,State) ->
 	{ok,State}.
 
 terminate(_Reason,_State) ->
-	cs_test:print("cs_channel.erl terminate"),
 	ok.
 
 code_change(_OldVsn,State,_Extra) ->

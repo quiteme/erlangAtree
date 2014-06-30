@@ -168,11 +168,11 @@ chatter_leave_channel(Pid,Cid) ->
 
 chatter_drop_channel(Cid)->
 	case cs_channel_store:lookup(Cid) of
-		{ok,[{cid,Cid},{manager,Manager},{chatter,Chatter},Count]} ->
+		{ok,[{cid,Cid},{manager,Manager},{chatter,Chatter},_]} ->
 			Filters = [{fun chatter_replace_list/1,[Manager]},{fun chatter_replace_list/1,[Chatter]}],
 			run_filters(Filters),
 			cs_channel:delete(Cid),
-			cs_channel_store:delete(Cid,[{cid,Cid},{manager,Manager},{chatter,Chatter},Count]);
+			cs_channel_store:delete(Cid);
 		_ -> {error,not_found}
 	end.
 
