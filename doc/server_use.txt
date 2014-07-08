@@ -1,0 +1,58 @@
+ubuntu@115.29.14.9:/home/ubuntu/apps/metheus
+git@115.29.14.9:/home/git/server_001.git
+git submodule sync && git submodule update --init --recursive
+
+在分支上开发 合并主干前先更新主干 合并主干后将主干合并到分支
+
+svn://192.168.2.6/Metheus
+chizhesheng = s7awzoz14m
+
+数据表生成命令：
+cd app/server_engine && rails g model 表名 字段1:类型1 字段2:类型2
+  例子： 
+  cd app/server_engine && rails g model player uuid:string user_id:string level:integer
+数据表的修改：
+cd app/server_engine && rails g migration add_column_to_table column:type
+  例子：
+  cd app/server_engine && rails g migration add_skill_point_to_table skill_point:integer
+
+项目编译：make
+运行：make console
+测试: make test
+执行指定测试：rebar compile eunit suites=Controller名字 skip_deps=true
+
+配置文件的读取方法：
+Req = game_numerical:find(config_forge_requirements, Equip#equips.conf_id)
+param1:在config_names.hrl中
+param2:在db_schema.hrl中
+
+对数据的操作
+controllers:
+	model模块的操作
+	exp:model:find(#users{uuid=PlayerID})
+		在model中查找记录，记录新定义，且uuid赋初值
+		model:update(NewUser)
+		更新记录数据
+
+request && response 消息 都需要遵循routes协议
+
+gproc
+ gproc 有良好的查询能力，相对ETS表，可以支持更复杂的key，以及对key的模式匹配。
+
+ 常见使用方法
+-define(GPROC_KEY(Name), {n, l, Name}).
+-define(GET_PID(Name), gproc:where(?GPROC_KEY(Name))).
+-define(REG_PID(Name), gproc:reg(?GPROC_KEY(Name))). %% Only can reg yourself.
+-define(UNREG(Name), gproc:unreg(?GPROC_KEY(Name))).
+The types above are:
+  n = name (unique object)
+  p = property (non-unique object)
+  c = counter (non-unique object)
+  a = aggregated counter (unique object)
+The contexts are simply:
+  g = global
+  l = local
+gproc:send(key)，如果是unique object，则向该线程发消息，如果是non-unique object，则向所有key所在线程发消息
+
+ ranch
+ Ranch is a socket acceptor pool for TCP protocols.

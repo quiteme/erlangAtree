@@ -7,15 +7,37 @@ erlang 常用添加库
 	rebar OTP管理工具
 	Emysql MySQL数据库工具
 	eredis redis库调用工具
+	ranch 处理TCP网络的模块
+
 erlang 常用容器
 	dict
 	sets
-	lists
+	lists 
+	[
+		hd(List) 返回list的头
+	]
 	ets
-	proplist
+	proplist(并非容器，主要用于对容器数据的查询操作)
+	[
+		在给定的list中查询值
+		如：proplists:append_values(a,[{a,{alli,1}},{a,{alli,2}},{a,{alli,3}}，{b,{alli,4}}])
+		将在[{a,{alli,1}},{a,{alli,2}},{a,{alli,3}}]列表中查询key为a的数据并组成一个列表返回[{alli,1},{alli,2},{alli,3}].
+		如：proplists:get_value(a,[{a,{alli,1}},{a,{alli,2}},{a,{alli,3}}])
+		将在[{a,{alli,1}},{a,{alli,2}},{a,{alli,3}}]列表中查询key为a的第一个数据返回{alli,1}.
+	]
 	array
-	put-get-earse(线程dict)
 	redis
+	process dict
+	[
+		线程字典直接与线程相关，也就是，每个在该线程中运行的模块，都可以直接访问process dict，而相同的模块，在不同的线程中调用线程字典，得到的结果是不一样的
+		例如：player线程，调用model模块的函数，model函数调用线程字典，得到的结果将于player线程相关。
+		get() 			returns the entire process dictionary.
+		get(Key) 		returns the item associated with Key (Key is any Erlang data structure), or, returns the special atom undefined if no value is associated with Key.
+		put(Key, Value) associate Value with Key. Returns the old value associated with Key, or, undefined if no such association exists.
+		erase() 		erases the entire process dictionary. Returns the entire process diction before it was erased.
+		erase(Key) 		erases the value associated with Key. Returns the old value associated with Key, or, undefined if no such association exists.
+		get_keys(Value) returns a list of all keys whose associated value is Value.
+	]
 
 Create New repository
 
@@ -92,6 +114,8 @@ try ... after ... end  %不管有没有异常 after中的部分都回执行
 <- 从列表中选取元素 exp: << <<X:3>> || X <- [1,2,3,4,5,6,7] >>
 <= 从位串中提取内容 exp：[x || <<X:3>> <= <<41,203,23:5>>]
 
+位串的数据格式：Value:Size/TypeSpecifierList 值:大小/类型 例：<<UnixSecs :32/big, MachineAndProcId :5/binary, Count :24/big>>
+
 记录声明
 -record(customer,{name="<anonymous>",address,phone}).
 创建记录
@@ -101,6 +125,9 @@ R = #customer{phone="55555555"}
 R#customer.phone -> "55555555"  %直接访问
 记录的修改
 R#customer{name="aaaa aaaa",address="vvbbv sv s s"}
+获取记录信息
+record_info(fields, Record) -> [Field]
+record_info(size, Record) -> Size
 
 宏定义
 -define(PI,3.14).
@@ -116,11 +143,14 @@ Erlang系统预定义了一些宏
 -include("test.hrl").  %hrl文件一般为erl文件的头文件,通常只有声明，没有函数
 -include_lib("test/test.hrl").
 
-条件编译
+条件编译 (不能用于函数内 用处不大)
 -ifdef(Test). %宏没有用?开头
 -ifndef(Test).
 -else.
 -endif.
+
+函数规范定义
+-spec 用于定义函数的参数和返回值的约定规范
 
 进程
 进程创建 spawn()
@@ -196,4 +226,4 @@ run_filters([{Fun,Args}|Filters]) ->
 已知的远程函数 bar:foo()			几乎和本地函数调用一样快
 未知的远程调用 Mod:Func()			大约比本地调用慢3倍
 Fun 函数调用 F()					比本地调用慢2~3倍
-元调用 apply(Mod,Func,Args)		比本地调用慢6~10倍
+元调用 apply(Mod,Func,Args)		比本地调用慢6~10倍 (可以实现proxy调用，即通过给定模块名，函数名和参数，调用相应的函数)

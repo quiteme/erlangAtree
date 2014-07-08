@@ -1,8 +1,10 @@
 -module (hello).
 -export ([start/0]).
 -export ([run/0]).
--export ([test1/0]).
+-export ([test1/0,test2/0,test3/0]).
 -export ([area/1,list_remove_one/2]).
+
+-record(tset_rec, {rec1,rec2}).
 
 start()->
 	io:format("erlang!~n"),
@@ -11,7 +13,7 @@ start()->
 
 run()->
 	Pid = spawn(fun ping/0),  %spawn的重载 调函数引用
-	Pid ! self(),             %发送 (目的地 ！消息)
+	Pid ! self(),             %发送 (目的地 ！消息)1
 	receive
 		pong -> ok
 	end.
@@ -38,3 +40,17 @@ area(Shape)->				%使用case子句 替代如first.erl中的area函数重载
 
 list_remove_one(List,One) when is_list(List) ->
 	[X || X <- List , X =/= One].
+
+test2() ->
+	Test = #tset_rec{rec1 = 1},
+	NewTest = update_rec2([Test]),
+	io:format("ffffffffff:~n~p~n",[NewTest]).
+
+update_rec2([Test]) -> Test#tset_rec{rec2 = 2}.
+
+test3() ->
+	List = [<<"1">>,<<"2">>,<<"3">>],
+	DictList = [{binary_to_integer(X),1} || X <- List],
+	Dict = dict:from_list(DictList),
+	NewList = dict:to_list(Dict),
+	io:format("Dict:~p~n",[NewList]).

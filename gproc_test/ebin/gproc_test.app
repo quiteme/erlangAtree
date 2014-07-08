@@ -1,0 +1,10 @@
+{application,gproc_test,
+             [{description,[]},
+              {vsn,"1"},
+              {registered,[]},
+              {applications,[kernel,stdlib]},
+              {mod,{gproc_test_app,[]}},
+              {env,[]},
+              {modules,[factorytests,gproc_test_app,gproc_test_sup,gt_chatter,
+                        gt_chatter_sup,gt_factory,gt_factory_sup,
+                        gt_factory_test,gt_print]}]}.

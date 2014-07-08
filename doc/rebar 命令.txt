@@ -1,0 +1,52 @@
+常用命令
+compile		编译项目中所有可用的源文件
+eunit		使用Eunit执行单元测试
+doc			使用Edoc生成文档
+clean		去掉所有生成的文件。包括编译，单元测试等过程生成的
+analyze		使用Dialyzer执行静态分析
+build_plt	构建Dialyzer PLT; 具体描述请看：Dialyzer documentation
+check_plt	检查Dialyzer PLT是否是最新，需要的话重新构建
+create		根据模板创建一个典型的项目
+create-app	根据模板文件priv/templates/simpleapp.template ，创建一个典型的OTP应用
+create-node	Create a prototypical OTP embedded system (described by the priv/templates/simplenode.reltool.config template)
+delete-deps	删除rebar.config 设置的依赖库（包）源文件D
+generate	使用 Reltool 构建一个embedded system
+get-deps	检索rebar.config 文件中配置的依赖的代码
+xref		使用Xref 分析依赖
+
+Rebar可以通过compile指令编译多种格式的源文件：
+源文件			目标文件				描述
+src/*.erl		ebin/*.beam			ERlang的源文件
+src/*.app.src	ebin/*.app			Erlang应用程序的资源文件
+c_src/*.c		priv/<app>.so		port driver的c语言源代码或者NIF共享链接库
+mibs/*.mib		priv/mibs/*.bin		SNMP 的mib 文件
+src/*.xrl		src/*.erl			Leex 生成的文件
+src/*.yrl		src/*.erl			Yecc 生成的文件
+asn1/*.asn1		src/*.erl			ASN-1文件
+templates/*.dtl	ebin/*_dtl.beam		ErlyDTL模板文件 (需要额外安装 ErlyDTL)
+src/*.lfe		ebin/*.beam			LFE 源文件 (需要额外安装LFE)
+src/*.peg		ebin/*.beam			Neotoma PEG 语法源文件 (需要额外安装Neotoma)
+src/*.proto		ebin/*_pb.beam,include/*_pb.hrl		Protocol Buffers 参数(需要额外安装protobuffs)
+
+Rebar可以在rebar.config文件中配置的各种选项：
+命令			选项参数				描述
+compile		erl_first_files		需要提前编译的erlang源文件（例如behavior模块）
+compile		erl_opts			编译器支持的其他选项，详情请见 here
+compile		mib_first_files		需要提前编译的mib文件列表 (例如, mib 文件中import部分的引用的RFC文件
+compile		src_dirs			列出其他包含erlang源文件的目录
+compile		erlydtl_opts		更多的支持的选项查阅 ErlyDTL Templates
+clean		clean_files			需要在clean步骤删除的文件列表，列出那些需要clean指令删除的其他模块的文件
+doc			edoc_opts			edoc 支持的指令，详见：here
+eunit		eunit_opts			Eunit支持的指令，详见 here
+eunit		cover_enabled		开启erlang的覆盖率分析
+eunit		eunit_compile_opts	Eunit编译时用到的其他的选项
+analyze		dialyzer_opts		指定Dialyzer PLT 文件
+build_plt	dialyzer_opts		指定Dialyzer PLT 文件
+check_plt	dialyzer_opts		指定 Dialyzer PLT 文件
+get-deps,delete-deps	base_dir	为deps_dir 指定一个候选的目录
+get-deps,delete-deps	deps_dir	制定一个文件夹存储依赖
+get-deps,delete-deps	deps		依赖的列表
+generate	target_dir			目标文件夹
+generate	overlay_vars		Overlay variables file
+xref		xref_warnings		打开xref的警告
+xref		xref_checks			Xref模块中analyze/3支持的选项，具体可以参考： here
