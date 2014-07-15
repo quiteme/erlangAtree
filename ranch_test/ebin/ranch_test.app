@@ -1,0 +1,9 @@
+{application,ranch_test,
+             [{description,[]},
+              {vsn,"1"},
+              {registered,[]},
+              {applications,[kernel,stdlib]},
+              {mod,{ranch_test_app,[]}},
+              {env,[]},
+              {modules,[global_properties,ranch_client,ranch_conn,
+                        ranch_test_app,ranch_test_sup]}]}.

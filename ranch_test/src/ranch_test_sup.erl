@@ -1,4 +1,5 @@
--module(gt_factory_sup).
+-module(ranch_test_sup).
+
 -behaviour(supervisor).
 
 %% API
@@ -22,6 +23,10 @@ start_link() ->
 %% ===================================================================
 
 init([]) ->
-	%gt_factory = ets:new(gt_factory,[ordered_set,public,named_table,{read_concurrency,true}]),
-	GtFactory = ?CHILD(gt_factory,worker),
-    {ok, {{one_for_one, 5, 10}, [GtFactory]}}.
+	RanchSupSpec = ?CHILD(ranch_sup, supervisor),
+    ListenerSpec = ranch:child_spec(ranch_tcp_listener, 8,
+        ranch_tcp, [{port, 5555}, {max_connections, infinity}],
+        ranch_conn, []),
+    Specs = [RanchSupSpec, ListenerSpec],
+    {ok, {{one_for_one, 5, 10}, Specs}}.
+

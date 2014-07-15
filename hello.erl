@@ -1,7 +1,7 @@
 -module (hello).
 -export ([start/0]).
 -export ([run/0]).
--export ([test1/0,test2/0,test3/0]).
+-export ([test1/0,test2/0,test3/0,test4/1]).
 -export ([area/1,list_remove_one/2]).
 
 -record(tset_rec, {rec1,rec2}).
@@ -54,3 +54,16 @@ test3() ->
 	Dict = dict:from_list(DictList),
 	NewList = dict:to_list(Dict),
 	io:format("Dict:~p~n",[NewList]).
+
+test4(Daily) ->
+	NowDate = erlang:date(),
+	case Daily of 
+		{_Days,NowDate} -> {fail,error};
+		_ -> ok 
+	end. 
+	% {_,Date} = Daily,
+	% NowDate = erlang:date(), 
+	% if
+	% 	NowDate =:= Date -> {fail,error};
+	% 	true -> ok
+	% end.

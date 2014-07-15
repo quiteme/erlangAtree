@@ -7,6 +7,9 @@ git submodule sync && git submodule update --init --recursive
 svn://192.168.2.6/Metheus
 chizhesheng = s7awzoz14m
 
+ssh metheus@192.168.2.41 'cd ~/workspace/metheus_prj && make'
+http://metheusdemac-mini.local/xcode/bots/metheus001bot/archives
+
 数据表生成命令：
 cd app/server_engine && rails g model 表名 字段1:类型1 字段2:类型2
   例子： 
@@ -53,6 +56,17 @@ The contexts are simply:
   g = global
   l = local
 gproc:send(key)，如果是unique object，则向该线程发消息，如果是non-unique object，则向所有key所在线程发消息
+proplists:get_value(gproc, gproc:info(self())) 获取gproc中注册的所有key_value对的方法
+                                               gproc:info(Pid) 会获取线程的gproc信息和线程的信息
 
- ranch
+ ranch 
  Ranch is a socket acceptor pool for TCP protocols.
+
+ ranch record protocol{ref = ranch_tcp_listener, socket = #Port<0.945>, transport = ranch_tcp}
+ ranch handle_info -> timeout
+                      {tcp,Socket,Data}
+                      {tcp_closed,Socket}
+                      {tcp_error,Socket,Msg}
+ ranch:accept_ack(protocol.ref(ranch_tcp_listener)),
+ Transport(ranch_tcp):setopts(Socket,[Params]),
+ gen_tcp:connect() 会启动一个connection线程，如果多次调用，可同时启动多个connection连接
