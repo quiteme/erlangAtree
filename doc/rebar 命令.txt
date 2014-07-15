@@ -7,7 +7,7 @@ analyze		使用Dialyzer执行静态分析
 build_plt	构建Dialyzer PLT; 具体描述请看：Dialyzer documentation
 check_plt	检查Dialyzer PLT是否是最新，需要的话重新构建
 create		根据模板创建一个典型的项目
-create-app	根据模板文件priv/templates/simpleapp.template ，创建一个典型的OTP应用
+create-app	根据模板文件priv/templates/simpleapp.template ，创建一个典型的OTP应用(参数 appid=myapp)
 create-node	Create a prototypical OTP embedded system (described by the priv/templates/simplenode.reltool.config template)
 delete-deps	删除rebar.config 设置的依赖库（包）源文件D
 generate	使用 Reltool 构建一个embedded system

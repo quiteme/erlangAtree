@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+ 
+<fruit>
+    <apple price="1">
+    	<user name="user1">3</user>
+    	<user name="user2">1</user>
+    	<user name="user3">2</user>
+    </apple>
+    <orange price="2">
+    	<user name="user1">3</user>
+    	<user name="user2">1</user>
+    	<user name="user3">2</user>
+    </orange>
+    <pear price="3">
+    	<user name="user1">3</user>
+    	<user name="user2">1</user>
+    	<user name="user3">2</user>
+    </pear>
+</fruit>
