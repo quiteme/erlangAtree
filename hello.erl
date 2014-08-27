@@ -1,7 +1,7 @@
 -module (hello).
 -export ([start/0]).
 -export ([run/0]).
--export ([test1/0,test2/0,test3/0,test4/1]).
+-export ([test1/0,test2/0,test3/0,test4/1,test5/0]).
 -export ([area/1,list_remove_one/2]).
 
 -record(tset_rec, {rec1,rec2}).
@@ -67,3 +67,19 @@ test4(Daily) ->
 	% 	NowDate =:= Date -> {fail,error};
 	% 	true -> ok
 	% end.
+
+test5() ->
+	Dict = dict:new(),
+	Dict1 = dict:store(<<"user1">>, 100, Dict),
+	Dict2 = dict:store(<<"user2">>, 200, Dict1),
+	Dict3 = dict:store(<<"user3">>, 100, Dict2),
+	io:format("Dict:~p~n", [Dict3]),
+	List = dict:to_list(Dict3),
+	io:format("List:~p~n", [List]),
+	NewList = lists:sort(fun({_KeyA, ValueA}, {_KeyB, ValueB}) ->
+					if 
+						ValueA >= ValueB -> true;
+						true -> false
+					end
+			   end, List),
+	io:format("SortList:~p~n", [NewList]).
