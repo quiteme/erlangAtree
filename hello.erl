@@ -66,7 +66,7 @@ test4(Daily) ->
 	% if
 	% 	NowDate =:= Date -> {fail,error};
 	% 	true -> ok
-	% end.
+	% end.  
 
 test5() ->
 	Dict = dict:new(),
