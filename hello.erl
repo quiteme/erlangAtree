@@ -1,7 +1,7 @@
 -module (hello).
 -export ([start/0]).
 -export ([run/0]).
--export ([test1/0,test2/0,test3/0,test4/1,test5/0]).
+-export ([test1/0,test2/0,test3/0,test4/1,test5/0, test6/0]).
 -export ([area/1,list_remove_one/2]).
 
 -record(tset_rec, {rec1,rec2}).
@@ -83,3 +83,9 @@ test5() ->
 					end
 			   end, List),
 	io:format("SortList:~p~n", [NewList]).
+
+test6() ->
+	test6_1(<<"Test123">>).
+
+test6_1(ConfStr) ->
+	error_logger:info_msg("Test6~p~n", [ConfStr]).

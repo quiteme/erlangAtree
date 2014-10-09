@@ -1,5 +1,6 @@
 ubuntu@115.29.14.9:/home/ubuntu/apps/metheus
 git@115.29.14.9:/home/git/server_001.git
+git@115.29.14.9:/home/git/ClientUpdate.git
 git submodule sync && git submodule update --init --recursive
 
 在分支上开发 合并主干前先更新主干 合并主干后将主干合并到分支
@@ -9,6 +10,19 @@ chizhesheng = s7awzoz14m
 
 ssh metheus@192.168.2.41 'cd ~/workspace/metheus_prj && make'
 http://metheusdemac-mini.local/xcode/bots/metheus001bot/archives
+
+类型：PPTP
+地址：23.252.106.15
+账户：vpn
+密码：teHZV3c8
+
+客户端版本更新
+svn up
+git add
+git commit
+cap deploy
+
+./cap deploy all_servers
 
 数据表生成命令：
 cd app/server_engine && rails g model 表名 字段1:类型1 字段2:类型2
