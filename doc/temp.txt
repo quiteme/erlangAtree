@@ -14,3 +14,5 @@ send_server_chat_params:
   title: string
   content: string
   layout: integer
+
+  5437890A1646B94C7D0009BA
