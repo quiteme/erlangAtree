@@ -45,3 +45,12 @@ stop() ->
 		?_assertEqual(3, add(1,2)),
 		?_assertEqual(3, add(1,1))
 	].
+
+get_test_list() -> 
+	["abc", 
+	 "ace", 
+	 "dac", 
+	 "fdc", 
+	 "ecf"].
+
+

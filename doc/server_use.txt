@@ -1,6 +1,6 @@
 ubuntu@115.29.14.9:/home/ubuntu/apps/metheus
 git@115.29.14.9:/home/git/server_001.git
-git@115.29.14.9:/home/git/ClientUpdate.git
+git@115.29.14.9:/home/git/client_update.git
 git submodule sync && git submodule update --init --recursive
 
 在分支上开发 合并主干前先更新主干 合并主干后将主干合并到分支
@@ -24,6 +24,8 @@ cap deploy
 
 ./cap deploy all_servers
 
+sudo ssh-add ~/.ssh/id_rsa
+
 数据表生成命令：
 cd app/server_engine && rails g model 表名 字段1:类型1 字段2:类型2
   例子： 
@@ -40,6 +42,8 @@ cd app/server_engine && rails g migration remove_column_from_table column:type
 运行：make console
 测试: make test
 执行指定测试：rebar compile eunit suites=Controller名字 skip_deps=true
+
+备份 schedule_helper:backup().
 
 配置文件的读取方法：
 Req = game_numerical:find(config_forge_requirements, Equip#equips.conf_id)
@@ -95,6 +99,7 @@ proplists:get_value(gproc, gproc:info(self())) 获取gproc中注册的所有key_
 ps aux | grep erlang 查看相关进程
 
 wc 登陆到服务器 
+unicode:characters_to_binary(<<"Name">>, unicode)
 rr("include/db_schema.hrl"). 加载所有的record
 name_server:get_player_id(). 用名字找到玩家的uuid
 count_server:get(). 用玩家udid查找玩家uuid
@@ -104,3 +109,6 @@ player_data:find(). 用玩家uuid查找玩家相关信息
    eredis:q(Redis, [“setex", Key, Seconds, Value])
 
    eredis:q(Redis, [“get”, Key])
+
+   [{store_list, [[{id,5}, _, _, _, _, _]| _]}, _, _]
+
