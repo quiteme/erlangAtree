@@ -3,10 +3,18 @@ git@115.29.14.9:/home/git/server_001.git
 git@115.29.14.9:/home/git/client_update.git
 git submodule sync && git submodule update --init --recursive
 
+itools
+honorquest@115.29.14.9:/home/honorquest/honorquest_server.git
+honorquest@115.29.14.9:/home/honorquest/honorquest_gateway.git
+honorquest@115.29.14.9:/home/honorquest/honorquest_datacenter.git
+honorquest@115.29.14.9:/home/honorquest/client_update.git
+
 在分支上开发 合并主干前先更新主干 合并主干后将主干合并到分支
 
 svn://192.168.2.6/Metheus
 chizhesheng = s7awzoz14m
+svn:
+chizesheng = ^x#79%k46g$xdgehmqp(
 
 ssh metheus@192.168.2.41 'cd ~/workspace/metheus_prj && make'
 http://metheusdemac-mini.local/xcode/bots/metheus001bot/archives
@@ -111,4 +119,13 @@ player_data:find(). 用玩家uuid查找玩家相关信息
    eredis:q(Redis, [“get”, Key])
 
    [{store_list, [[{id,5}, _, _, _, _, _]| _]}, _, _]
+
+sudo -s launchctl load -w /System/Library/LaunchDaemons/ftp.plist 
+sudo -s launchctl unload -w /System/Library/LaunchDaemons/ftp.plist 
+
+qq:
+公网：182.254.152.187
+内网：10.131.144.140
+账号：ubuntu
+密码：snDQQjW25HjDIz
 

@@ -52,37 +52,143 @@ alliances_controller,agree
 マリアさんはパソコンを使いことができますか
 大阪は何時まで見学ができますか　５時までです
 カードで払うことができますか　すみませんが、現金でお願いします
-趣味はなんですか　古い時計を集めることです
-ビザが要ります　調べます　直します　修理します　電話します　僕　君　サラリーマン　言葉　物価　着物　ビザ　始め　終わり　こっち　そっち　あっち　どっち　この間　みんなで　国へ帰るの？　どうするの？　どうしようかな　よかったら　いろいろ
-ビザが要ります　調べます　直します　修理します　電話します　僕　君　サラリーマン　言葉　物価　着物　ビザ　始め　終わり　国へ帰るの？　どうするの？　どうしようかな？　よかったら　いろいろ
-ビザが要ります　調べます　直します　修理します　電話します　僕　君　サラリーマン　言葉　物価　着物　ビザ　始め　終わり　国へ帰るの？　どうするの？　どうしようかな　よかったら　いろいろ
-ビザが要ります　調べます　直します　修理します　電話します　僕　君　サラリーマン　言葉　物価　着物　ビザ　始め　終わり　国へ帰るの？　どうするの？　どうしようかな？　よかったら？　いろいろ
-サントスさんはパーティーに来なかった　日本は物価が高い　沖縄の海は綺麗だった　　今日は僕の誕生日だ
-サントスさんはパーティーに来なかった　日本は物価が高い　沖縄の海は綺麗だった　今日は僕の誕生日だ
-ビザが要ります　調べます　直します　修理します　電話します　僕　君　サラリーマン　言葉　物価　着物　ビザ　始め　終わり　国へ帰るの？　どうするの？　どうしようかな？　よかったら？　いろいろ
-サントスさんはパーティーに来なかった　日本は物価が高い　沖縄の海は綺麗だった　今日は僕の誕生日だ
-サントスさんはパーティーに来なかった　日本は物価が高い　沖縄の海は綺麗だった　今日は僕の誕生日だ
-ビザが要ります　調べます　直します　修理します　電話します　僕　君　サラリーマン 言葉　物価　着物　ビザ　始め　終わり　国へ帰るの？　どうするの？　そうしようかな？　よかったら？
-サントスさんはパーティーに来なかった　日本は物価が高い　沖縄の海は綺麗だった　今日は僕の誕生日だ
-アイスクリーム食べる？　うん、食べる
-そこにはさみある？　ううん、ない　
-昨日、木村さんに会った？　ううん、会わなかった
-明日みんなで京都行かない？　うん、いいね
-そのカレーライス美味しい？　うん、辛いけど、美味しい
-今暇？　うん、暇、何？　ちょっと、手伝って
-辞書を持ってる？　ううん、持ってない
-アイスクリーム食べる　うん、食べる
-そこにはさみある　ううん、ない
-昨日、木村さんに会った　ううん、会わなかった
-そのカレーライス美味しい　うん、辛いけど、美味しい
-いまひま？　うん、暇、何？　ちょっと、手伝って
-辞書を持ってる　うん、持ってない
-夏休みはどうするの？　ううん、帰りたいけど、　小林君はどうするの？
-どうしようかな、タワポン君、富士山に登ったことある
-ううん
-と思います　言います　足ります　勝ちます　負けます　お祭りがあります　役に立ちます　むだ　不便　同じ　すごい　首相　大統領　政治　ニュース　むだ　スピーチ　試合　アリバイト　意見　話　ユーモア　むだ　デザイン　交通　ラッシュ　最近　たぶん　きっと　本当に　そんなに　ついて　
-仕方がありません　しばらくですね　でも飲みません　見ないと　もちろん　
-明日雨が降ると思います
+55DC7BC01646B90B2E0001CE
+
+55DC6D151646B902B3000001
+
+55DC73051646B90B2E0000A7
+
+baseInfo.qqAppId = "1104821006";
+baseInfo.qqAppKey = "pJFcxj4xOYImq5oF";
+baseInfo.wxAppId = "wx0493e8db3cb904ca";
+baseInfo.wxAppKey = "cac406d1f35c5db694af3fdfb6972017";
+baseInfo.msdkKey = "04155662f3363848906964c862262b73";
+baseInfo.offerId = "1104821006";
+
+Gems = Data div 7,
+			Times = insert_redis(UserId, Key, 7, Gems),
+			if 
+				Times >= 998 andalso Times - Gems < 998 ->
+					Atach5 = get_attacment_zone(<<"use_gem998_mobile">>),
+					send_event_msg(UserId, User#users.locale, {<<"use_gem998_mobile">>, [], [], Atach5});
+				true -> ok 
+			end
+
+openid：		从手Q登录态或微信登录态中获取的openid的值
+openkey：	从手Q登录态或者微信登录态中获取的access_token 的值
+pay_token:   手Q登录时从手Q登录态中获取的pay_token的值,使用MSDK登录后获取到,的eToken_QQ_Pay返回内容就是pay_token;微信登录时特别注意该参数传空。
+appid：		应用的唯一ID。可以通过appid查找APP基本信息。
+ts：		UNIX时间戳（从格林威治时间1970年01月01日00时00分00秒起至现在的总秒数）。
+payitem：	请使用x*p*num的格式，x表示物品ID，p表示单价（以Q点为单位，1Q币=10Q点，单价的制定需遵循腾讯定价规范），num表示默认的购买数量。（格式：物品ID1*单价1*建议数量1，批量购买物品时使用;分隔，如：id1*price1*num1;id2*price2*num2)长度必须<=512
+
+goodsmeta：	物品信息，格式必须是“name*des”，批量购买套餐时也只能有1个道具名称和1个描述，即给出该套餐的名称和描述。name表示物品的名称，des表示物品的描述信息。用户购买物品的确认支付页面，将显示该物品名称（name）。
+长度必须<=256字符，必须使用utf8编码。
+目前goodsmeta超过76个字符后不能添加回车字符。
+
+goodsurl：	物品的图片url(长度<512字符)
+sig：		请求串的签名（可以参考下面具体示例，或者到wiki下载SDK）。
+pf：		平台来源，$平台-$渠道-$版本-$业务标识。
+例如： openmobile_android-2001-android-xxxx
+pfkey：		跟平台来源和openkey根据规则生成的一个密钥串。如果是腾讯自研应用固定传递pfkey=”pfkey”
+zoneid：		账户分区ID。应用如果没有分区：传zoneid=1
+amt：		(可选)道具总价格。（amt必须等于所有物品：单价*建议数量的总和）
+max_num：	(可选) 用户可购买的道具数量的最大值。
+仅当appmode的值为2时，可以输入该参数。输入的值需大于参数“payitem”中的num，如果小于num，则自动调整为num的值。
+appmode：	(可选)1表示用户不可以修改物品数量，2 表示用户可以选择购买物品的数量。默认2（批量购买的时候，必须等于1）
+app_metadata：（可选）发货时透传给应用。
+			长度必须<=128字符
+userip：		（可选）用户的外网IP
+format：		（可选）json、jsonp_$func。默认json。如果jsonp，前缀为：$func 
+			例如：format=jsonp_sample_pay，返回格式前缀为：sample_pay()
+
+siye: http://54.187.151.64:7070/ckeditor_assets/pictures/26/content_500en.jpg
+
+openid,openkey,pay_token,appid,ts,payitem,goodsmeta,goodsurl,sig,pf,pfkey,zoneid
+amt,max_num,appmode,app_metadata,userip,format,
+
+回调：
+openid=test001
+appid=33758
+ts=1328855301
+payitem=323003*8*1
+token=53227955F80B805B50FFB511E5AD51E025360
+billno=-APPDJT18700-20120210-1428215572
+version=v3
+zoneid=1
+providetype=0
+amt=80
+payamt_coins=20
+pubacct_payamt_coins=10
+sig=VvKwcaMqUNpKhx0XfCvOqPRiAnU%3D
+
+https://[域名]/v3/pay/confirm_delivery 
+ts	            必须	string	linux时间戳。注意开发者的机器时间与腾讯计费开放平台的时间相差不能超过15分钟。
+payitem	        必须	string	物品信息。通过解析腾讯后台回调发货URL时传入的payitem获得该参数的值。
+token_id	    必须	string	应用调用v3/pay/buy_goods接口成功返回的订单token。注意，订单token的有效期为2个小时，必须在获取到订单token后的2个小时内传递该token，否则将会返回订单无效的错误。
+billno	        必须	string	支付流水号（64个字符长度。该字段和openid合起来是唯一的）。通过解析腾讯后台回调发货URL时传入的billno获得该参数的值。
+version		        string	协议版本号。通过解析腾讯后台回调发货URL时传入的version获得该参数的值。
+zoneid	        必须	string	在支付接入页面配置的分区ID。通过解析腾讯后台回调发货URL时传入的zoneid获得该参数的值。注：2013年后接入的寄售应用，此参数将作为分区发货的重要参数，如果因为参数传错或为空造成的收入损失，由开发商自行承担。
+providetype		    string	发货类型，这里请传入0。0表示道具购买，1表示每日礼包营销活动中的道具赠送，2表示交叉营销任务集市中的奖励发放。通过解析腾讯后台回调发货URL时传入的providetype获得该参数的值。
+provide_errno	必须	string	发货结果，0：表示发货成功，其他：表示失败。输入的值请务必与回调发货URL时的返回码ret的值一致，否则会被腾讯支付系统认为本笔交易异常
+provide_errmsg		string	发货结果描述，最长为128字节。
+amt	            必须	string	Q币Q点消耗金额或财付通游戏子账户的扣款金额。通过解析腾讯后台回调发货URL时传入的amt获得该参数的值，如果回调URL中没有参数amt，则这里传入0。
+payamt_coins	必须	string	扣取的游戏币总数，单位为Q点。通过解析腾讯后台回调发货URL时传入的payamt_coins获得该参数的值，如果回调URL中没有参数payamt_coins，则这里传入0。
+pubacct_payamt_coins string	扣取的抵用券总金额，单位为Q点。可以为空，若传递空值或不传本参数则表示未使用抵扣券。通过解析腾讯后台回调发货URL时传入的pubacct_payamt_coins获得该参数的值，如果回调URL中没有参数pubacct_payamt_coins，则这里传入0。
+
+http://wiki.open.qq.com/wiki/%E5%9B%9E%E8%B0%83%E5%8F%91%E8%B4%A7URL%E7%9A%84%E5%8D%8F%E8%AE%AE%E8%AF%B4%E6%98%8E_V3
+http://wiki.open.qq.com/wiki/%E6%94%AF%E4%BB%98%E6%8E%A5%E5%85%A5%E7%94%B3%E8%AF%B7%E8%AF%B4%E6%98%8E#3._.E6.94.AF.E4.BB.98.E6.8E.A5.E5.85.A5.E7.94.B3.E8.AF.B7.E6.97.B6.E9.9C.80.E5.A1.AB.E5.86.99.E7.9A.84.E5.9F.BA.E6.9C.AC.E8.B5.84.E6.96.99
+http://wiki.open.qq.com/wiki/%E5%9B%9E%E8%B0%83%E5%8F%91%E8%B4%A7URL%E7%9A%84%E5%8D%8F%E8%AE%AE%E8%AF%B4%E6%98%8E_V3
+
+GET&%2Fv3%2Fpay%2Fpay&amt%3D10%26appid%3D15499%26openid%3D00000000000000000000000014BDF6E4%26openkey%3DAB43BF3DC5C3C79D358CC5318E41CF59%26payitem%3Did%252Aname%252Adesc%26pf%3Dqzone%26pfkey%3DCA641BC173479B8C0B35BC84873B3DB9%26ts%3D1340880299%26userip%3D112.90.139.30
+GET&%2Fv3%2Fpay%2Fpay&amt%3D10%26appid%3D15499%26openid%3D00000000000000000000000014BDF6E4%26openkey%3DAB43BF3DC5C3C79D358CC5318E41CF59%26payitem%3Did%2Aname%2Adesc%26pf%3Dqzone%26pfkey%3DCA641BC173479B8C0B35BC84873B3DB9%26ts%3D1340880299%26userip%3D112.90.139.30
+
+erl -sname fuck_qq -remsh "tx001@localhost" -setcookie server_local_cookie
+
+http://182.254.152.187:7070/ckeditor_assets/pictures/1/original_gem.png
+
+55B9FE5DFE13E77A17000912
+
+
+"amt"=>"64800", 
+"appid"=>"1450004000", 
+"appmeta"=>"55E6BCA3861BF329B3000001_55ED517D861BF30A1B000006*qdqb*qq", 
+"billno"=>"-APPDJSX34179-20150907-1657411301", 
+"channel_id"=>"73213123-android-73213123-qq-1104821006-A05D4A73F942061895E2073C53BEC99B-1234-qq", 
+"clientver"=>"android", 
+"kbazinga"=>"1", 
+"openid"=>"A05D4A73F942061895E2073C53BEC99B", 
+"payamt_coins"=>"0", 
+"payitem"=>"1*6480*1", 
+"providetype"=>"5", 
+"pubacct_payamt_coins"=>"", 
+"token"=>"E86395712CFDE168D8F579618200F4AF15800", 
+"ts"=>"1441616261", 
+"version"=>"v3", 
+"zoneid"=>"1", 
+"sig"=>"HiSruRsBdJ6aLJQJMLe/yvNjwpY="
+
+
+"amt"=>"600", 
+"appid"=>"1450004000", 
+"appmeta"=>"55E6BCA3861BF329B3000001_55ED5A37861BF30A1B00000B*qdqb*wechat", 
+"billno"=>"-APPDJSX34179-20150907-1736037378", 
+"channel_id"=>"73213123-android-73213123-wx-wx0493e8db3cb904ca-oDTTWt4VOm8Z2CF32iXmKnPgjDuc-1234-wechat", 
+"clientver"=>"android", 
+"nbazinga"=>"1", 
+"openid"=>"oDTTWt4VOm8Z2CF32iXmKnPgjDuc", 
+"payamt_coins"=>"0", 
+"payitem"=>"1*60*1", 
+"providetype"=>"5", 
+"pubacct_payamt_coins"=>"", 
+"token"=>"CEA41919E867240D98E5EEA1286FF38415800", 
+"ts"=>"1441618563", 
+"version"=>"v3", 
+"zoneid"=>"1", 
+"sig"=>"Owzih+sqi4GSo4co/GiRGa/knGM="
+
+[<<"jQmm1yXd">>,<<"kQmmLTnB">>,<<"lQmm1oJB">>,
+ <<"zQmmHWpE">>,<<"xQmmtJlT">>,<<"cQmmL6uG">>,<<"vQmmzLvh">>,
+ <<"bQmmfZHx">>,<<"nQmm8wdP">>,<<"mQmm6xmg">>]
 
 
 
